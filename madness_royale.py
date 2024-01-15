@@ -45,55 +45,55 @@ grenade_thrown = False
 
 
 #loading music 
-pygame.mixer.music.load('audio/music.mp3')
+pygame.mixer.music.load('Madness_Royale/audio/music.mp3')
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1, 0.0, 5000)
 
-jump_fx = pygame.mixer.Sound('audio/jump.flac')
+jump_fx = pygame.mixer.Sound('Madness_Royale/audio/jump.flac')
 jump_fx.set_volume(0.5)
 
-shot_fx = pygame.mixer.Sound('audio/rifle.wav')
+shot_fx = pygame.mixer.Sound('Madness_Royale/audio/rifle.wav')
 shot_fx.set_volume(0.5)
 
-hurt_fx = pygame.mixer.Sound('audio/hurt.flac')
+hurt_fx = pygame.mixer.Sound('Madness_Royale/audio/hurt.flac')
 hurt_fx.set_volume(0.5)
 
-grenade_fx = pygame.mixer.Sound('audio/explosion.ogg')
+grenade_fx = pygame.mixer.Sound('Madness_Royale/audio/explosion.ogg')
 grenade_fx.set_volume(0.5)
 
-power_up = pygame.mixer.Sound('audio/power_up.wav')
+power_up = pygame.mixer.Sound('Madness_Royale/audio/power_up.wav')
 power_up.set_volume(1.0)
 
-coin_pickup = pygame.mixer.Sound('audio/coin.wav')
+coin_pickup = pygame.mixer.Sound('Madness_Royale/audio/coin.wav')
 coin_pickup.set_volume(0.5)
 
 #load images
 #button image
-start_img = pygame.image.load('images/start_btn.png').convert_alpha()
-exit_img = pygame.image.load('images/exit_btn.png').convert_alpha()
-restart_btn = pygame.image.load('images/restart_btn.png').convert_alpha()
+start_img = pygame.image.load('Madness_Royale/images/start_btn.png').convert_alpha()
+exit_img = pygame.image.load('Madness_Royale/images/exit_btn.png').convert_alpha()
+restart_btn = pygame.image.load('Madness_Royale/images/restart_btn.png').convert_alpha()
     
                      
 #background image
-back_img = pygame.image.load('images/Background/background.png').convert_alpha()
+back_img = pygame.image.load('Madness_Royale/images/Background/background.png').convert_alpha()
 
 #store tiles in a list
 img_list = []
 for x in range(TILE_TYPES):
-    img = pygame.image.load(f'images/tile/{x}.png')
+    img = pygame.image.load(f'Madness_Royale/images/tile/{x}.png')
     img = pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
     img_list.append(img)
  
 #bullet
-bullet_img = pygame.image.load('images/bullet.png').convert_alpha()
+bullet_img = pygame.image.load('Madness_Royale/images/bullet.png').convert_alpha()
 #coins
-coin_img = pygame.image.load('images/coinbox.png').convert_alpha()
+coin_img = pygame.image.load('Madness_Royale/images/coinbox.png').convert_alpha()
 #grenade
-grenade_img = pygame.image.load('images/grenade.png').convert_alpha()
+grenade_img = pygame.image.load('Madness_Royale/images/grenade.png').convert_alpha()
 #pick up boxes
-ammo_box = pygame.image.load('images/ammobox.png').convert_alpha()
-grenade_box = pygame.image.load('images/grenadebox.png').convert_alpha()
-coin_box = pygame.image.load('images/coinbox.png').convert_alpha()
+ammo_box = pygame.image.load('Madness_Royale/images/ammobox.png').convert_alpha()
+grenade_box = pygame.image.load('Madness_Royale/images/grenadebox.png').convert_alpha()
+coin_box = pygame.image.load('Madness_Royale/images/coinbox.png').convert_alpha()
 item_boxes = {
   'Ammo' : ammo_box,
   'Grenade' : grenade_box,
@@ -178,10 +178,10 @@ class Char(pygame.sprite.Sprite):
             #resetting the list of images 
             temp_list = []
             #number of files in each folder 
-            num_of_frames = len(os.listdir(f'images/{self.char_type}/{animation}'))
+            num_of_frames = len(os.listdir(f'Madness_Royale/images/{self.char_type}/{animation}'))
    
             for i in range(num_of_frames):
-                img = pygame.image.load(f'images/{self.char_type}/{animation}/{i}.png').convert_alpha()
+                img = pygame.image.load(f'Madness_Royale/images/{self.char_type}/{animation}/{i}.png').convert_alpha()
                 img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
@@ -598,7 +598,7 @@ class Explosion(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for num in range(50):
-            img = pygame.image.load(f'images/explosion/tile0{num}.png').convert_alpha()
+            img = pygame.image.load(f'Madness_Royale/images/explosion/tile0{num}.png').convert_alpha()
             img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.images.append(img)
         self.frame_index = 0
@@ -681,7 +681,7 @@ for row in range(ROWS):
     r = [-1] * COLS
     world_data.append(r)
 #load in level data and create world
-with open(f'level{level}_data.csv', newline='') as csvfile:
+with open(f'Madness_Royale/level{level}_data.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for x, row in enumerate(reader):
         for y, tile in enumerate(row):
@@ -788,7 +788,7 @@ while run: #executes the game
                 world_data = reset_level()
                 if level <= MAX_LEVELS:
                      #load in level data and create world
-                        with open(f'level{level}_data.csv', newline='') as csvfile:
+                        with open(f'Madness_Royale/level{level}_data.csv', newline='') as csvfile:
                             reader = csv.reader(csvfile, delimiter=',')
                             for x, row in enumerate(reader):
                                 for y, tile in enumerate(row):
@@ -819,7 +819,7 @@ while run: #executes the game
                     bg_scroll = 0
                     world_data = reset_level()
                     #load in level data and create world
-                    with open(f'level{level}_data.csv', newline='') as csvfile:
+                    with open(f'Madness_Royale/level{level}_data.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',')
                         for x, row in enumerate(reader):
                             for y, tile in enumerate(row):
