@@ -21,6 +21,7 @@ clock = pygame.time.Clock()
 FPS = 60 #number of frames rendered each second 
 
 #define game variables
+num_game = 0
 score = [] #even though the new level will update, the coins will still be stored 
 test_score = [0]
 GRAVITY = 0.75
@@ -668,14 +669,37 @@ exit_group = pygame.sprite.Group()
 collect_coin_executed = False
 
 def collect_coin(coin):
-    # print(coin)
-    test_score = [0]
-    test_score[0] += coin
-    print(test_score[0])
-    with open('scores.csv', 'a', newline = '') as csvfile:
-        my_writer = csv.writer(csvfile, delimiter = ',')
-        my_writer.writerow(test_score)
-#create empty tile list
+    global num_game
+    test_score = 0
+    test_score += coin
+    #csv file 
+    
+    file = 'scores.csv'
+    file_exists = os.path.exists(file)
+    with open(file, 'a', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        if not file_exists:
+            csv_writer.writerow(['Game Number', 'Score'])
+        num_game+=1
+        csv_writer.writerow([num_game, test_score])
+
+#         # Write data rows
+#         for game_num in range(1, number_of_games + 1):
+#             # You can replace the following line with your logic to generate scores
+#             score = game_num * 10
+
+#             # Write the data to the CSV file
+#             csv_writer.writerow([game_num, score])
+    
+#     with open('scores.csv', 'a', newline = '') as csvfile:
+#         csv_writer = csv.writer(csvfile)
+#         csv_writer.writerow(['Game Number', 'Score'])
+#         num_game+=1
+#         csv_writer.writerow([num_game, test_score])
+#     # with open('scores.csv', 'a', newline = '') as csvfile:
+#     #     my_writer = csv.writer(csvfile, delimiter = ',')
+#     #     my_writer.writerow(test_score)
+# #create empty tile list
 world_data = []
 for row in range(ROWS):
     r = [-1] * COLS
@@ -796,11 +820,15 @@ while run: #executes the game
                         world = World()
                         player, health_bar = world.process_data(world_data)
                 else:
-                    print("test")
                     score.append(coin)
-                    with open('scores.csv', 'w', newline = '') as csvfile:
-                        my_writer = csv.writer(csvfile, delimiter = ' ')
-                        my_writer.writerow(score)
+                    with open('scores.csv', 'a', newline = '') as csvfile:
+                        csv_writer = csv.writer(csvfile)
+                        csv_writer.writerow(['Game Number', 'Score'])
+                        num_game = list(num_game+1)
+                        csv_writer.writerow([num_game, test_score])
+                    # with open('scores.csv', 'w', newline = '') as csvfile:
+                    #     my_writer = csv.writer(csvfile, delimiter = ' ')
+                    #     my_writer.writerow(score)
                     run = False                      
         else:
             #call function
